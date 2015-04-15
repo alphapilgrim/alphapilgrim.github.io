@@ -114,17 +114,23 @@ var Engine = (function (global) {
     function checkCollisions(){
         for(var enemy = 0; enemy < allEnemies.length;enemy++){
             if (player.x < allEnemies[enemy].x + 50 && player.x + 50 > allEnemies[enemy].x && player.y < allEnemies[enemy].y + 50 && player.y + 50 > allEnemies[enemy].y ) {
+                // If collision occurs player reset's.
                 player.reset();
+                // Console will acknowledge in form of a bite.
                 console.log("Beetle-Bite!");
-                lives -=1;
-                if (score > 0) {
-                    score -=5;
+                // One player life is removed per occurence.
+                player.lives -= 1;
+                // Score is subtracted by 5 if there are any lives left.
+            if (player.score > 0) {
+                player.score -= 5;
                 }
-                console.log(lives);
-                if (lives === 0) {
-                    console.log("Game-Over!" + " " + "Beetle-Juice!");
-                    lives = 3;
-                    score = 0;
+                console.log(player.lives);
+
+            if (player.lives === 0) {
+                alert("Game-Over!");
+                console.log("Game-Over!");
+                player.score = 0;
+                player.lives = 3;
                 }
             }
         }
@@ -133,7 +139,7 @@ var Engine = (function (global) {
     /*This function will check if player and gem collide.*/
 
     function gemCollisions(){
-      if (player.x < gems.x + 50 && player.x + 50 > gems.x && player.y < gems.y + 50 && player.y + 50 > gems.y ) {
+      if (player.x < gem.x + 50 && player.x + 50 > gem.x && player.y < gem.y + 50 && player.y + 50 > gem.y ) {
           console.log("Gem-Up!");
             score += 5;
 
@@ -141,7 +147,7 @@ var Engine = (function (global) {
             document.getElementById( "score" ).innerHTML = score;
 
             // only reset's the gem
-            gems.reset();
+            gem.reset();
         }
 
       }
@@ -196,7 +202,7 @@ var Engine = (function (global) {
         });
 
         player.render();
-        gems.render();
+        gem.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -204,9 +210,8 @@ var Engine = (function (global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
-        //after player has gemmed up, gem reset method with be called
-        gems.reset();
+        // After player has gemmed up, gem reset method with be called.
+        gem.reset();
     }
 
     /* Go ahead and load all of the images we know we're going to need to

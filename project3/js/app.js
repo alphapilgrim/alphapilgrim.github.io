@@ -1,6 +1,4 @@
 "use strict";
-var lives = 3;
-var score = 0;
 
 // Enemies our player must avoid
 var Enemy = function(x, y) {
@@ -11,23 +9,21 @@ var Enemy = function(x, y) {
     // A helper we've provided to easily load images.
     this.sprite = 'images/enemy-bug.png';
     // Provides random x position for enemy reset.
-    this.x = this.randomizer();
+    this.x = this.randomXPos();
     this.y = y;
-    // Speed is defined by speedyGozales method.
-    this.speed = this.speedyGonzales();
+    // Speed is defined by getRandomSpeed method.
+    this.speed = this.getRandomSpeed();
 };
 
 // Random x position after reset for enemy.
-Enemy.prototype.randomizer = function() {
+Enemy.prototype.randomXPos = function() {
         this.x = Math.floor((Math.random() * 175) + 50);
     };
     // Random enemy speed.
-Enemy.prototype.speedyGonzales = function() {
-    this.speed = Math.floor((Math.random() * 175) + 50);
-    if (this.speed < 50) {
-        allEnemies.push(new Enemy(-2, 125));
-    }
-    return this.speed;
+Enemy.prototype.getRandomSpeed = function() {
+    var speed = 0;
+    speed = Math.floor((Math.random() * 175) + 100);
+    return speed;
 };
 
 // Update the enemy's position, required method for game
@@ -49,12 +45,14 @@ Enemy.prototype.render = function() {
 };
 // Enemy reset method, reset's enemy and gives random speed.
 Enemy.prototype.reset = function() {
-        this.speed = this.speedyGonzales();
+    this.speed = this.getRandomSpeed();
     };
     // Now write your own player class
     // This class requires an update(), render() and
     // a handleInput() method.
 var Player = function Player(x, y) {
+    this.lives = 3;
+    this.score = 0;
     this.sprite = 'images/char-boy.png';
     this.x = x,
     this.y = y;
@@ -65,46 +63,25 @@ Player.prototype.update = function() {
     // When player reaches water, game will reset
     if (this.y < 25) {
         this.reset();
-        score += 10;
+        this.score += 10;
         // console.log score
-        console.log(score);
+        console.log(this.score);
     }
     // If player collides or makes it across, these elements
     // are updated.
-    document.getElementById('lives').innerHTML = "Lives:" + lives;
-    document.getElementById('score').innerHTML = "Score:" + score;
+    document.getElementById('lives').innerHTML = "Lives:" + this.lives;
+    document.getElementById('score').innerHTML = "Score:" + this.score;
 };
 
 // Implemented a simple measure of score and lives.
 setTimeout(function() {
-    if (score >= 110 && lives == 3) {
-        alert(score + '!!! Flawless Victory!!!');
-    } else if (score <= 110 && lives != 3) {
-        alert(score + '-points' + ' Not good enough...!!!MORTAL...BUG...KOMBAT!!!!');
+    if (this.score >= 110 && this.lives == 3) {
+        alert(this.score + '!!! Flawless Victory!!!');
+    } else if (this.score <= 110 && this.lives <= 3) {
+        alert(this.score + '-points' + ' Not good enough...!!!MORTAL...BUG...KOMBAT!!!!');
     } else console.log("A-OK!");
 
 }, 60000);
-
-// For a more theatrical Title-color
-var bugger = '<div id = "open">! </div><div id = "open">B </div><div id = "open">- </div><div id = "open">U </div><div id = "open">- </div><div id = "open">G </div><div id = "open">- </div><div id = "open">G </div><div id = "open">- </div><div id = "open">E </div><div id = "open">- </div><div id = "open">R </div><div id = "open">!</div>';
-$("#bugger").append(bugger);
-var pre = document.querySelectorAll('#open');
-var colors = ["red", "red", "orange", "yellow", "chartreuse", "cyan", "violet", "purple", "purple", "indigo"];
-var tempColors = [];
-
-setInterval(function() {
-
-    for (var i = 0; i < pre.length; i++) {
-        if (i == pre.length - 1) {
-            tempColors[i] = colors[0];
-            colors = tempColors;
-        } else {
-            tempColors[i] = colors[i + 1];
-        }
-        pre[i].style.color = tempColors[i];
-    }
-
-}, 60);
 // Draw the enemy on the screen, required method for game
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -114,7 +91,6 @@ Player.prototype.render = function() {
 Player.prototype.reset = function() {
     this.x = 200;
     this.y = 400;
-
 };
 
 // HandleInput moves player around canvas grid.
@@ -131,15 +107,14 @@ Player.prototype.handleInput = function(key) {
 };
 
 // Made a gem following the same method as in player and enemy.
-var Gems = function() {
+var Gem = function() {
 // Added image for Gem, and set method for random placement
     this.sprite = 'images/Gem Orange.png';
-    this.x = 50 + 100 * (Math.floor(Math.random() * 3));
-    this.y = 100 + 50 * (Math.floor(Math.random() * 3));
-
+    this.x = Math.floor( (Math.random() * 404) + 1);
+    this.y = Math.floor( (Math.random() * 4) + 1) * 83;
 };
 
-Gems.prototype.update = function(dt) {
+Gem.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -147,15 +122,15 @@ Gems.prototype.update = function(dt) {
     this.y * (dt);
 };
 
-// Draw the gems on the screen, required method for game
-Gems.prototype.render = function() {
+// Draw the Gem on the screen, required method for game
+Gem.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Reset method for random placement of Gems.
-Gems.prototype.reset = function() {
-    this.x = Math.floor((Math.random() * 404) + 1);
-    this.y = Math.floor((Math.random() * 4) + 1) * 83;
+// Reset method for random placement of Gem.
+Gem.prototype.reset = function() {
+    this.x = Math.floor( ( Math.random() * 404 ) + 1 );
+    this.y = Math.floor( ( Math.random() * 4 ) + 1 ) * 83;
 };
 
 // Now instantiate your objects.
@@ -163,19 +138,17 @@ Gems.prototype.reset = function() {
 var player = new Player(200, 400);
 
 // Instantiating my gem object.
-var gems = new Gems();
+var gem = new Gem();
 
 // Place all enemy objects in an array called allEnemies
 // Instantiating my enemies &&
 // pushing enemies into array with some fixed variable's until reset
 var allEnemies = [];
-(function enemyRoundUp() {
-    allEnemies.push(new Enemy(-2, 60));
-    allEnemies.push(new Enemy(-2, 110));
-    allEnemies.push(new Enemy(-2, 160));
-    allEnemies.push(new Enemy(-2, 220));
-    allEnemies.push(new Enemy(-2, 290));
-
+(function enemyArray() {
+    allEnemies.push(new Enemy(-2, 53));
+    allEnemies.push(new Enemy(-2, 145));
+    allEnemies.push(new Enemy(-2, 230));
+    allEnemies.push(new Enemy(-2, 315));
 }());
 
 // This listens for key presses and sends the keys to your
