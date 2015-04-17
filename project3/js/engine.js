@@ -124,33 +124,32 @@ var Engine = (function (global) {
             if (player.score > 0) {
                 player.score -= 5;
                 }
-                console.log(player.lives);
+            console.log(player.lives);
 
             if (player.lives === 0) {
                 alert("Game-Over!");
                 console.log("Game-Over!");
                 player.score = 0;
                 player.lives = 3;
-                }
             }
         }
     }
+}
 
     /*This function will check if player and gem collide.*/
 
     function gemCollisions(){
       if (player.x < gem.x + 50 && player.x + 50 > gem.x && player.y < gem.y + 50 && player.y + 50 > gem.y ) {
-          console.log("Gem-Up!");
-            score += 5;
-
-            // update's the score on the page
-            document.getElementById( "score" ).innerHTML = score;
-
-            // only reset's the gem
-            gem.reset();
-        }
-
+        // Console acknowledgement of Gem capture.
+        console.log("Gem-Up!");
+        // Points added for Gem capture.
+        score += 5;
+        // update's the score on the page
+        document.getElementById( "score" ).innerHTML = score;
+        // only reset's the gem
+        gem.reset();
       }
+  }
 
     function render() {
         /* This array holds the relative URL to the image used
