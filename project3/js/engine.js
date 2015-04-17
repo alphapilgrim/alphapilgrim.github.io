@@ -111,42 +111,49 @@ var Engine = (function (global) {
       *Score and lives are updated, and if there are no more lives left, the game resets.
      */
 
-    function checkCollisions(){
-        for(var enemy = 0; enemy < allEnemies.length;enemy++){
-            if (player.x < allEnemies[enemy].x + 50 && player.x + 50 > allEnemies[enemy].x && player.y < allEnemies[enemy].y + 50 && player.y + 50 > allEnemies[enemy].y ) {
-                // If collision occurs player reset's.
-                player.reset();
-                // Console will acknowledge in form of a bite.
-                console.log("Beetle-Bite!");
-                // One player life is removed per occurence.
-                player.lives -= 1;
-                // Score is subtracted by 5 if there are any lives left.
-            if (player.score > 0) {
-                player.score -= 5;
-                }
+    function checkCollisions()
+    {
+        for(var enemy = 0; enemy < allEnemies.length;enemy++)
+        {
+            if (player.x < allEnemies[enemy].x + 50 && player.x + 50 > allEnemies[enemy].x && player.y < allEnemies[enemy].y + 50 && player.y + 50 > allEnemies[enemy].y )
+            {
+            // If collision occurs player reset's.
+            player.reset();
+            // Console will acknowledge in form of a bite.
+            console.log("Beetle-Bite!");
+            // One player life is removed per occurence.
+            player.lives -= 1;
+            // Console logs remaing live's.
             console.log(player.lives);
-
-            if (player.lives === 0) {
+            // If player has remaining live's, point will be deducted.
+            if (player.score > 0)
+            {
+                player.score -= 5;
+            }
+            if (player.lives === 0)
+            {
                 alert("Game-Over!");
                 console.log("Game-Over!");
                 player.score = 0;
                 player.lives = 3;
+                clearTimeout(startKeeper);
+                startKeeper();
+            }
             }
         }
     }
-}
 
     /*This function will check if player and gem collide.*/
 
     function gemCollisions(){
-      if (player.x < gem.x + 50 && player.x + 50 > gem.x && player.y < gem.y + 50 && player.y + 50 > gem.y ) {
+      if (player.x < gem.x + 60 && player.x + 60 > gem.x && player.y < gem.y + 60 && player.y + 60 > gem.y ) {
         // Console acknowledgement of Gem capture.
         console.log("Gem-Up!");
         // Points added for Gem capture.
-        score += 5;
+        player.score += 5;
         // update's the score on the page
         document.getElementById( "score" ).innerHTML = score;
-        // only reset's the gem
+
         gem.reset();
       }
   }
@@ -209,8 +216,7 @@ var Engine = (function (global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // After player has gemmed up, gem reset method with be called.
-        gem.reset();
+
     }
 
     /* Go ahead and load all of the images we know we're going to need to

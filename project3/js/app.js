@@ -17,9 +17,9 @@ var Enemy = function(x, y) {
 
 // Random x position after reset for enemy.
 Enemy.prototype.randomXPos = function() {
-        this.x = Math.floor((Math.random() * 175) + 50);
-    };
-    // Random enemy speed.
+    this.x = Math.floor((Math.random() * 175) + 50);
+};
+// Random enemy speed.
 Enemy.prototype.getRandomSpeed = function() {
     var speed = 0;
     speed = Math.floor((Math.random() * 175) + 100);
@@ -74,14 +74,33 @@ Player.prototype.update = function() {
 };
 
 // Implemented a simple measure of score and lives.
-setTimeout(function() {
-    if (this.score >= 110 && this.lives == 3) {
-        alert(this.score + '!!! Flawless Victory!!!');
-    } else if (this.score <= 110 && this.lives <= 3) {
-        alert(this.score + '-points' + ' Not good enough...!!!MORTAL...BUG...KOMBAT!!!!');
-    } else console.log("A-OK!");
+var myKeeper;
 
-}, 60000);
+function startKeeper() {
+    myKeeper = setTimeout(function() {
+    if (player.score >= 110 && player.lives == 3) {
+        alert(player.score + '!!! Flawless Victory!!!');
+        clearTimeout(startKeeper);
+        startKeeper();
+    } else if (player.score <= 110 && player.lives <= 3) {
+        alert(player.score + '-points' + ' Not good enough...!!!MORTAL...BUG...KOMBAT!!!!');
+        clearTimeout(startKeeper);
+        startKeeper();
+        player.keeperReset();
+    } else
+    console.log("Let's try this again!");
+    startKeeper();
+    player.keeperReset();
+}, 120000);}
+    startKeeper();
+
+// Player game reset from keeper.
+Player.prototype.keeperReset = function() {
+    player.reset();
+    player.score = 0;
+    player.lives = 3;
+};
+
 // Draw the enemy on the screen, required method for game
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
