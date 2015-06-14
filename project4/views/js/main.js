@@ -1,4 +1,3 @@
-"use strict";
 /*
 Welcome to the 60fps project! Your goal is to make Cam's Pizzeria website run
 jank-free at 60 frames per second.
@@ -425,6 +424,7 @@ var resizePizzas = function(size) {
   // Iterates through pizza elements on the page and changes their widths.
   // Made the switch equal newWidth values for percentage, really good boost in JS time.
     function changePizzaSizes(size) {
+      var newWidth;
       switch(size) {
         case "1":
           newWidth = 25;
@@ -439,13 +439,15 @@ var resizePizzas = function(size) {
           console.log("bug in sizeSwitcher");
       }
       //Made the document select by element name and proved to boost JS performace as well.
-      var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
+      var randomPizzas = document.getElementsByClassName('randomPizzaContainer');
+
+      var pizzaNum;
 
       for (var i = 0; i < randomPizzas.length; i++) {
-      randomPizzas[i].style.width = newWidth + '%';
+        pizzaNum = randomPizzas[i];
+        pizzaNum.style.width = newWidth + '%';
     }
   }
-
 
   changePizzaSizes(size);
 
@@ -459,8 +461,9 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+var pizzasDiv = document.getElementById("randomPizzas");
+
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -501,12 +504,9 @@ function updatePositions() {
 
 
   var items = document.getElementsByClassName("mover");
-  var five = [0,1,2,3,4,];
-
 
   for (var i = 0; i < items.length; i++) {
-    five++;
-    phase + (i%five);
+    phase + (i % 5);
     //Here I wanted to figure out how to change the style.cssText to boost performance.
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
@@ -531,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Here I changed the amount of pizzas generated, counted the amount
   // of pizzas visually able to see on the biggest/smallest screen.
   // More than 22 was not needed.
-  for (var i = 0; i < 22; i++) {
+  for (var i = 0; i < 48; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
@@ -539,7 +539,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    document.getElementById("movingPizzas1").appendChild(elem);
   }
   updatePositions();
 });
