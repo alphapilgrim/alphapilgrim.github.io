@@ -441,11 +441,10 @@ var resizePizzas = function(size) {
       //Made the document select by element name and proved to boost JS performace as well.
       var randomPizzas = document.getElementsByClassName('randomPizzaContainer');
 
-      var pizzaNum;
+      var pizzaNum = randomPizzas.length;
 
-      for (var i = 0; i < randomPizzas.length; i++) {
-        pizzaNum = randomPizzas[i];
-        pizzaNum.style.width = newWidth + '%';
+      for (var i = 0; i < pizzaNum; i++) {
+        randomPizzas[i].style.width = newWidth + '%';
     }
   }
 
@@ -500,13 +499,15 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   var scrollingTop = document.body.scrollTop;
-  var phase = Math.sin((scrollingTop / 1250));
 
+  var phase;
 
   var items = document.getElementsByClassName("mover");
 
-  for (var i = 0; i < items.length; i++) {
-    phase + (i % 5);
+  var allItems = items.length;
+
+  for (var i = 0; i < allItems; i++) {
+    phase = Math.sin((scrollingTop / 1250) + (i % 5));
     //Here I wanted to figure out how to change the style.cssText to boost performance.
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
