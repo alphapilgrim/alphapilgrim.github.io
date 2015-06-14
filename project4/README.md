@@ -20,8 +20,9 @@ although my page is performing well under 60FPS there
 is more I would have like to have done there. Im sure
 I'll look back and it'll have been something simple but
 for now, stumped am I.
------------------------------------------
+
 Some of the optimizations made :
+-----------------------------------------
 
 Images compressed and resized, along with defining the
 width and height to aid the rendering.
@@ -43,7 +44,7 @@ but I had a bit of trouble. Looking back it was probably best
 for me to learn how to make these optimizations without a
 tasker. Next time I will be sure to use Gulp.
 
-				Instructions
+				INSTRUCTIONS
 -----------------------------------------
 ! 1. Please begin with creating a simple server with python
      (!!! inside of the the frontend folder).
