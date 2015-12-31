@@ -2,7 +2,7 @@
 ##frontend-nanodegree-mobile-portfolio
 ---------------------------------------
 ---------------------------------------
-Please begin by knowing that I tried many variations
+I'd like to begin with noting that I tried many variations
 of builds to see what yeilded the best performace on
 the entire project. I began with learning a bit about
 gzip and compressing my own files(which didnt end up going
