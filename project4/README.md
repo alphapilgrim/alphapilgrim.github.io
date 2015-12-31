@@ -1,7 +1,6 @@
 #Project 4
 ##frontend-nanodegree-mobile-portfolio
 ---------------------------------------
-Wanted to start by saying great project!
 ---------------------------------------
 Please begin by knowing that I tried many variations
 of builds to see what yeilded the best performace on
