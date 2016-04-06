@@ -62,7 +62,10 @@ then ngrok.
 3. Now you will be able to serve the project on a local
 tunnel. This is how my version of the site can be tested.
 Please contact me via email/twitter if you have any
-question/probelms.
+questions/probelms.
+
+
+
 ------------------------------------------
 timothy.lombrana@gmail.com && @alphapilgrim
 
