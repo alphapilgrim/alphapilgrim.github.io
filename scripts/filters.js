@@ -1,0 +1,1 @@
+"use strict";function removeSpaces(){return console.log("removeSpaces"),function(e){return angular.isString(e)?e.replace(/[\s]/g,""):e}}angular.module("alpha").filter("removeSpaces",removeSpaces);
