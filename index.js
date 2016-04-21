@@ -1,8 +1,6 @@
-// require('./scripts/Controllers')(app);
-// require('./scripts/Directive')(app);
-// require('./scripts/Services')(app);
-// require('./scripts/filters')(app);
-// Load the core build.
-// var _ = require('lodash/core');
+require('./scripts/Controllers')(app);
+require('./scripts/Directives')(app);
+require('./scripts/Services')(app);
+require('./scripts/filters')(app);
 
-// Commented out webpack for distribution testing.
+// // comment out above if this doesnt work.
